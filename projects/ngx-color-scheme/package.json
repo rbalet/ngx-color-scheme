@@ -1,7 +1,7 @@
 {
   "name": "ngx-color-scheme",
   "description": "Add dark mode to your Angular applications with ease!",
-  "version": "17.0.0",
+  "version": "18.0.0",
   "license": "MIT",
   "keywords": [
     "angular",
