@@ -1,8 +1,8 @@
 import { Component } from "@angular/core";
 
 @Component({
-  selector: "app-root",
-  template: `
+    selector: "app-root",
+    template: `
     <div class="container">
       <h1>ngx-color-scheme</h1>
       <p>Toggle to see magic happens!</p>
@@ -21,8 +21,8 @@ import { Component } from "@angular/core";
       >
     </footer>
   `,
-  styles: [
-    `
+    styles: [
+        `
       :host {
         height: 100vh;
       }
@@ -47,6 +47,7 @@ import { Component } from "@angular/core";
         color: inherit;
       }
     `,
-  ],
+    ],
+    standalone: false
 })
 export class AppComponent {}

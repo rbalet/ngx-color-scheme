@@ -1,8 +1,8 @@
-import { Component } from "@angular/core";
-import { ColorSchemeService } from "projects/ngx-color-scheme/src/lib/color-scheme.service";
+import { Component } from '@angular/core'
+import { ColorSchemeService } from 'projects/ngx-color-scheme/src/lib/color-scheme.service'
 
 @Component({
-  selector: "app-color-scheme-toggle",
+  selector: 'app-color-scheme-toggle',
   template: `
     <input
       id="colorScheme"
@@ -58,11 +58,11 @@ import { ColorSchemeService } from "projects/ngx-color-scheme/src/lib/color-sche
   ],
 })
 export class ColorSchemeToggleComponent {
-  readonly darkMode$ = this.colorSchemeService.darkMode$;
+  readonly darkMode$ = this.colorSchemeService.darkMode$
 
   constructor(private colorSchemeService: ColorSchemeService) {}
 
   onToggle(): void {
-    this.colorSchemeService.toggle();
+    this.colorSchemeService.toggle()
   }
 }
