@@ -1,97 +1,70 @@
-import {
-  Inject,
-  Injectable,
-  Optional,
-  Renderer2,
-  RendererFactory2,
-  WritableSignal,
-  signal,
-} from '@angular/core'
+import { Inject, Injectable, Optional, signal } from '@angular/core'
 import { COLOR_SCHEME_OPTIONS } from './color-scheme-options'
 import { defaultOptions } from './default-options'
-import { isNil } from './isNil'
-import { MediaQueryService } from './media-query.service'
 import { ColorSchemeOptions } from './types'
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class ColorSchemeService {
-  private readonly options: ColorSchemeOptions
-  private readonly renderer: Renderer2
-  readonly darkMode$: WritableSignal<boolean>
+  private _options!: ColorSchemeOptions
+  public darkMode$ = signal<boolean>(false)
 
   constructor(
-    private rendererFactory: RendererFactory2,
-    private mediaQueryService: MediaQueryService,
-    // prettier-ignore
-    @Optional() @Inject(COLOR_SCHEME_OPTIONS) private providedOptions: ColorSchemeOptions | null,
-  ) {
-    this.options = { ...defaultOptions, ...(this.providedOptions || {}) }
-    this.renderer = this.rendererFactory.createRenderer(null, null)
+    @Optional()
+    @Inject(COLOR_SCHEME_OPTIONS)
+    private providedOptions: ColorSchemeOptions | null,
+  ) {}
 
-    this.darkMode$ = signal<boolean>(this.getInitialColorSchemeValue())
-    this.darkMode$() ? this.enable() : this.disable()
+  init() {
+    this._options = { ...defaultOptions, ...(this.providedOptions || {}) }
+    this.darkMode$ = signal<boolean>(
+      localStorage.getItem(this._options.storageKey) === this._options.darkModeClass,
+    )
+    this.darkMode$() ? this.activateDarkMode() : this.activateLightMode()
 
     this.removePreloadingClass()
   }
 
+  matchMedia(query: string): MediaQueryList {
+    return window.matchMedia(query)
+  }
+
   toggle(): void {
-    this.darkMode$() ? this.disable() : this.enable()
+    this.darkMode$() ? this.activateLightMode() : this.activateDarkMode()
   }
 
-  enable(): void {
-    const { element, darkModeClass, lightModeClass } = this.options
-    this.renderer.removeClass(element, lightModeClass)
-    this.renderer.addClass(element, darkModeClass)
-
-    this.saveColorSchemeToStorage(true)
+  activateDarkMode(): void {
     this.darkMode$.set(true)
+
+    const { darkModeClass, lightModeClass } = this._options
+    const element = this._options.element || document.body
+
+    element.classList.remove(lightModeClass)
+    element.classList.add(darkModeClass)
+
+    this.saveColorSchemeToStorage(darkModeClass)
   }
 
-  disable(): void {
-    const { element, darkModeClass, lightModeClass } = this.options
-    this.renderer.removeClass(element, darkModeClass)
-    this.renderer.addClass(element, lightModeClass)
-
-    this.saveColorSchemeToStorage(false)
+  activateLightMode(): void {
     this.darkMode$.set(false)
+
+    const { darkModeClass, lightModeClass } = this._options
+    const element = this._options.element || document.body
+
+    element.classList.remove(darkModeClass)
+    element.classList.add(lightModeClass)
+
+    this.saveColorSchemeToStorage(lightModeClass)
   }
 
-  private getInitialColorSchemeValue(): boolean {
-    const colorSchemeFromStorage = this.getColorSchemeFromStorage()
-
-    if (isNil(colorSchemeFromStorage)) {
-      return this.mediaQueryService.prefersColorScheme()
-    }
-
-    return colorSchemeFromStorage
-  }
-
-  private saveColorSchemeToStorage(colorScheme: boolean): void {
-    localStorage.setItem(this.options.storageKey, JSON.stringify({ colorScheme }))
-  }
-
-  private getColorSchemeFromStorage(): boolean | null {
-    const storageItem = localStorage.getItem(this.options.storageKey)
-
-    if (storageItem) {
-      try {
-        return JSON.parse(storageItem)?.colorScheme
-      } catch (error) {
-        console.error(
-          'Invalid colorScheme localStorage item:',
-          storageItem,
-          'falling back to color scheme media query',
-        )
-      }
-    }
-
-    return null
+  private saveColorSchemeToStorage(colorScheme: string): void {
+    localStorage.setItem(this._options.storageKey, colorScheme)
   }
 
   private removePreloadingClass(): void {
     // defer to next tick
     setTimeout(() => {
-      this.renderer.removeClass(this.options.element, this.options.preloadingClass)
+      const element = this._options.element || document.body
+      element.classList.remove(this._options.preloadingClass)
     })
   }
 }

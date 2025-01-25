@@ -54,6 +54,28 @@ providers: [
 })
 ```
 
+## SSR
+In case you'd like to use it with Angular SSR.
+As the library is using `document.body`, you need to instantiate it inside the `app.component.ts` file. 
+
+```typescript
+// app.component.ts
+import { afterRender } from '@angular/core'
+import { ColorSchemeService } from 'ngx-color-scheme'
+
+export class AppComponent {
+  constructor(
+    private _colorSchemeService: ColorSchemeService,
+  ) {
+    const singleRender = afterRender(() => {
+      this._colorSchemeService.init()
+      singleRender.destroy()
+    })
+  }
+}
+```
+
+
 ## Usage
 
 In order to use ngx-color-scheme you need to inject the service somewhere in your applications - presumably where you hold the dark mode toggle, and get the dark mode value from the exported `colorScheme$` Observable:

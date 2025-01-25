@@ -1,8 +1,8 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core'
 
 @Component({
-    selector: "app-root",
-    template: `
+  selector: 'app-root',
+  template: `
     <div class="container">
       <h1>ngx-color-scheme</h1>
       <p>Toggle to see magic happens!</p>
@@ -12,17 +12,13 @@ import { Component } from "@angular/core";
     </div>
     <footer>
       Icons made by
-      <a href="https://www.flaticon.local/authors/freepik" title="Freepik"
-        >Freepik</a
-      >
+      <a href="https://www.flaticon.local/authors/freepik" title="Freepik">Freepik</a>
       from
-      <a href="https://www.flaticon.local/" title="Flaticon"
-        >www.flaticon.local</a
-      >
+      <a href="https://www.flaticon.local/" title="Flaticon">www.flaticon.local</a>
     </footer>
   `,
-    styles: [
-        `
+  styles: [
+    `
       :host {
         height: 100vh;
       }
@@ -47,7 +43,7 @@ import { Component } from "@angular/core";
         color: inherit;
       }
     `,
-    ],
-    standalone: false
+  ],
+  standalone: false,
 })
 export class AppComponent {}

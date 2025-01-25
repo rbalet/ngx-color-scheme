@@ -7,6 +7,5 @@ export const defaultOptions: ColorSchemeOptions = {
   darkModeClass: 'dark-mode',
   lightModeClass: 'light-mode',
   preloadingClass: 'color-scheme-preloading',
-  storageKey: 'color-scheme',
-  element: document.body,
+  storageKey: 'colorScheme',
 }
