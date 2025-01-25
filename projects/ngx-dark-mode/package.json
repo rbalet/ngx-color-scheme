@@ -1,0 +1,32 @@
+{
+  "name": "ngx-dark-mode",
+  "description": "Add dark mode to your Angular applications with ease!",
+  "version": "0.0.1",
+  "license": "MIT",
+  "keywords": [
+    "angular",
+    "angular 2",
+    "dark mode",
+    "dark theme",
+    "dark"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rbalet/ngx-dark-mode"
+  },
+  "author": {
+    "name": "Raphaël Balet",
+    "email": "raphael.balet@outlook.com",
+    "url": "https://github.com/rbalet"
+  },
+  "peerDependencies": {
+    "@angular/common": ">=16.0.0",
+    "@angular/core": ">=16.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
+}

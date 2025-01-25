@@ -1,0 +1,198 @@
+<p align="center">
+    <img width="600px" src="https://raw.githubusercontent.com/talohana/angular-dark-mode/master/logo.svg" />
+</p>
+
+<hr />
+
+![GitHub](https://img.shields.io/github/license/rbalet/ngx-dark-mode)
+![Codecov](https://img.shields.io/codecov/c/github/rbalet/ngx-dark-mode)
+![Travis (.com)](https://img.shields.io/travis/com/rbalet/ngx-dark-mode)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+![npm bundle size](https://img.shields.io/bundlephobia/min/ngx-dark-mode)
+![npm](https://img.shields.io/npm/v/ngx-dark-mode)
+![npm](https://img.shields.io/npm/dw/ngx-dark-mode)
+
+ngx-dark-mode is a zero-dependency library that helps you integrate dark mode into you Angular applications with ease!
+
+[👉🏻 Live Demo 👈🏻](https://stackblitz.com/edit/ngx-dark-mode-v3-example?file=src/app.component.ts)
+
+Inspired by the awesome [use-dark-mode](https://github.com/donavon/use-dark-mode) library
+
+Forked from the not more maintained [angular-dark-mode](https://github.com/talohana/angular-dark-mode) library
+
+<p align="center">
+  <img width="400px" src="https://raw.githubusercontent.com/talohana/angular-dark-mode/master/example.gif" />
+</p>
+
+## Installation
+
+To use ngx-dark-mode in your project install it via npm:
+
+```
+// npm npm i ngx-dark-mode
+```
+
+or provide it inside the `app.module.ts` file 
+
+```typescript
+import { DarkModeService } from 'ngx-dark-mode'
+
+export function initDarkMode(darkModeService: DarkModeService) {
+  return () => darkModeService
+}
+
+@NgModule({
+// ...
+providers: [
+    {
+      provide: APP_INITIALIZER, // If you wish to instantiate it before the App renders
+      useFactory: initDarkMode,
+      deps: [DarkModeService],
+      multi: true,
+    },
+]
+})
+```
+
+if you are using custom configuration see [ngx-dark-mode.js](#ngx-dark-mode.js)
+
+## Usage
+
+In order to use ngx-dark-mode you need to inject the service somewhere in your applications - presumably where you hold the dark mode toggle, and get the dark mode value from the exported `darkMode$` Observable:
+
+```ts
+// dark-mode-toggle.component.ts
+
+@Component({
+  selector: 'app-dark-mode-toggle',
+  template: `<input
+    type="checkbox"
+    [checked]="darkMode$ | async"
+    (change)="onToggle()"
+  />`,
+})
+export class DarkModeToggle {
+  darkMode$ = this.darkModeService.darkMode$.asReadonly();
+
+  constructor(private darkModeService: DarkModeService) {}
+
+  onToggle(): void {
+    this.darkModeService.toggle();
+  }
+}
+```
+
+Next, include global styles and some text to reflect the mode:
+
+```css
+/* styles.css */
+
+body.dark-mode {
+  background-color: #2d3436;
+  color: #dfe6e9;
+}
+
+body.light-mode {
+  background-color: #dfe6e9;
+  color: #2d3436;
+}
+```
+
+```ts
+// app.component.ts
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <h1>ngx-dark-mode</h1>
+    <p>Toggle to see magic happens!</p>
+    <app-dark-mode-toggle></app-dark-mode-toggle>
+  `,
+})
+export class AppComponent {}
+```
+
+You're all set!  
+Save and run your application, play with the toggle button to change between modes.
+
+## Options
+
+`ngx-dark-mode` ships with the following options:
+
+| Option          |                         Description                          |            Default Value |
+| --------------- | :----------------------------------------------------------: | -----------------------: |
+| darkModeClass   |                   dark mode css class name                   |            `'dark-mode'` |
+| lightModeClass  |                  light mode css class name                   |           `'light-mode'` |
+| preloadingClass | css class name to flag that `element` is in preloading state | `'dark-mode-preloading'` |
+| storageKey      |            localStorage key to persist dark mode             |            `'dark-mode'` |
+| element         |         target HTMLElement to set given css classes          |          `document.body` |
+
+<br />
+
+All options are set to default and can be configured via the `DARK_MODE_OPTIONS` InjectionToken:
+
+```ts
+import { DARK_MODE_OPTIONS } from 'ngx-dark-mode';
+
+@NgModule({
+    ...
+    providers: [
+        {
+            provide: DARK_MODE_OPTIONS,
+            useValue: {
+                darkModeClass: 'my-dark-mode',
+                lightModeClass: 'my-light-mode'
+            }
+        }
+    ]
+    ...
+})
+export class AppModule {}
+```
+
+## ngx-dark-mode.js
+
+This file has multiple purposes:
+
+1. Persistence - retrieve previous dark mode state from `localStorage` if empty falls back to [`(prefers-color-scheme: dark)` media query](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme)
+2. Preloading - set a `preloadingClass` to `document.body` which can be used to prevent initial transitioning
+
+If you are using the default configurations, adding the `ngx-dark-mode.js` file bundled with this library is enough.
+
+In any other case, copy `ngx-dark-mode.js` locally, make the necessary changes and load it instead of the bundled one.
+
+### Transitioning
+
+It is often useful to transition the changes between dark and light modes, and most of the time we would want to skip the initial transition, in order to achieve this use the `preloadingClass` option like so:
+
+```css
+/* styles.css */
+...
+
+body:not(.dark-mode-preloading) {
+  transition: all 0.3s linear;
+}
+
+...
+```
+
+## Contributors
+
+Thanks goes to these wonderful people:
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://talohana.com/"><img src="https://avatars.githubusercontent.com/u/24203431?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tal Ohana</b></sub></a><br /><a href="https://github.com/TalOhana/ngx-dark-mode/commits?author=talohana" title="Code">💻</a> <a href="https://github.com/TalOhana/ngx-dark-mode/commits?author=talohana" title="Documentation">📖</a> <a href="#maintenance-talohana" title="Maintenance">🚧</a></td>
+    <td align="center"><a href="https://github.com/Guysh9"><img src="https://avatars.githubusercontent.com/u/75510227?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Guy Shemesh</b></sub></a><br /><a href="#design-Guysh9" title="Design">🎨</a></td>
+    <td align="center"><a href="https://github.com/rbalet"><img src="https://avatars.githubusercontent.com/u/44493964?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Raphaël Balet
+</b></sub></a><br /><a href="#maintenance-talohana" title="Maintenance">🚧</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
