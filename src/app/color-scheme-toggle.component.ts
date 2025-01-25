@@ -1,17 +1,17 @@
 import { Component } from "@angular/core";
-import { DarkModeService } from "ngx-dark-mode";
+import { ColorSchemeService } from "projects/ngx-color-scheme/src/lib/color-scheme.service";
 
 @Component({
-  selector: "app-dark-mode-toggle",
+  selector: "app-color-scheme-toggle",
   template: `
     <input
-      id="darkMode"
+      id="colorScheme"
       type="checkbox"
       [checked]="darkMode$()"
       (change)="onToggle()"
       class="toggle"
     />
-    <label class="toggle-label" for="darkMode">
+    <label class="toggle-label" for="colorScheme">
       <img src="assets/moon.svg" class="moon" />
       <img src="assets/sun.svg" class="sun" />
     </label>
@@ -57,12 +57,12 @@ import { DarkModeService } from "ngx-dark-mode";
     `,
   ],
 })
-export class DarkModeToggleComponent {
-  readonly darkMode$ = this.darkModeService.darkMode$;
+export class ColorSchemeToggleComponent {
+  readonly darkMode$ = this.colorSchemeService.darkMode$;
 
-  constructor(private darkModeService: DarkModeService) {}
+  constructor(private colorSchemeService: ColorSchemeService) {}
 
   onToggle(): void {
-    this.darkModeService.toggle();
+    this.colorSchemeService.toggle();
   }
 }

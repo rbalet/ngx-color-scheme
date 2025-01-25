@@ -1,8 +1,8 @@
-import { when } from 'jest-when';
-import { prefersDarkSchemeQuery } from '../media-query';
-import { MediaQueryService } from '../media-query.service';
+import { when } from "jest-when";
+import { prefersDarkSchemeQuery } from "../media-query";
+import { MediaQueryService } from "../media-query.service";
 
-describe('MediaQueryService', () => {
+describe("MediaQueryService", () => {
   let mediaQueryService: MediaQueryService;
 
   beforeEach(() => {
@@ -10,11 +10,11 @@ describe('MediaQueryService', () => {
     mediaQueryService = new MediaQueryService();
   });
 
-  describe('matchMedia', () => {
-    it('should match media for given query', () => {
+  describe("matchMedia", () => {
+    it("should match media for given query", () => {
       global.matchMedia = jest.fn();
 
-      const mediaQueryMock = 'media-query-mock';
+      const mediaQueryMock = "media-query-mock";
 
       mediaQueryService.matchMedia(mediaQueryMock);
 
@@ -23,31 +23,31 @@ describe('MediaQueryService', () => {
     });
   });
 
-  describe('prefersDarkMode', () => {
-    it('should return true when prefers-color-scheme set to dark', () => {
+  describe("prefersColorScheme", () => {
+    it("should return true when prefers-color-scheme set to dark", () => {
       global.matchMedia = jest.fn();
 
       when(global.matchMedia as jest.Mock)
         .calledWith(prefersDarkSchemeQuery)
         .mockReturnValueOnce({ matches: true });
 
-      const prefersDarkMode = mediaQueryService.prefersDarkMode();
+      const prefersColorScheme = mediaQueryService.prefersColorScheme();
 
-      expect(prefersDarkMode).toBe(true);
+      expect(prefersColorScheme).toBe(true);
       expect(global.matchMedia).toHaveBeenCalledTimes(1);
       expect(global.matchMedia).toHaveBeenCalledWith(prefersDarkSchemeQuery);
     });
 
-    it('should return false when prefers-color-scheme set to light', () => {
+    it("should return false when prefers-color-scheme set to light", () => {
       global.matchMedia = jest.fn();
 
       when(global.matchMedia as jest.Mock)
         .calledWith(prefersDarkSchemeQuery)
         .mockReturnValueOnce({ matches: false });
 
-      const prefersDarkMode = mediaQueryService.prefersDarkMode();
+      const prefersColorScheme = mediaQueryService.prefersColorScheme();
 
-      expect(prefersDarkMode).toBe(false);
+      expect(prefersColorScheme).toBe(false);
       expect(global.matchMedia).toHaveBeenCalledTimes(1);
       expect(global.matchMedia).toHaveBeenCalledWith(prefersDarkSchemeQuery);
     });

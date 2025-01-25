@@ -1,16 +1,16 @@
 {
-  "name": "ngx-dark-mode-library",
+  "name": "ngx-color-scheme-library",
   "version": "0.0.1",
   "license": "MIT",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/rbalet/ngx-dark-mode"
+    "url": "https://github.com/rbalet/ngx-color-scheme"
   },
   "scripts": {
     "ng": "ng",
-    "start:app": "ng serve ngx-dark-mode-app",
-    "build:lib": "ng build --configuration production ngx-dark-mode",
+    "start:app": "ng serve ngx-color-scheme-app",
+    "build:lib": "ng build --configuration production ngx-color-scheme",
     "test": "jest --config jest.config.js",
     "test:watch": "jest --config jest.config.js --watch",
     "test:ci": "jest --config jest.config.js --runInBand",
@@ -18,8 +18,8 @@
     "lint": "eslint . --ext .js,.ts",
     "lint:fix": "npm run lint -- --fix",
     "format": "prettier --write .",
-    "copy-files": "cp -t dist/ngx-dark-mode README.md LICENSE",
-    "publish": "ng build ngx-dark-mode --configuration production && npm run copy-files && npm publish ./dist/ngx-dark-mode",
+    "copy-files": "cp README.md dist/ngx-color-scheme && cp LICENSE dist/ngx-color-scheme",
+    "publish": "ng build ngx-color-scheme --configuration production && npm run copy-files && npm publish ./dist/ngx-color-scheme",
     "package": "run-s clean build:lib copy-files",
     "clean": "rimraf dist",
     "semantic-release": "semantic-release",

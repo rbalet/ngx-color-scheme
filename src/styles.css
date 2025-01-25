@@ -1,9 +1,9 @@
 body {
   margin: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
-body:not(.dark-mode-preloading) {
+body:not(.color-scheme-preloading) {
   transition: all 0.3s linear;
 }
 

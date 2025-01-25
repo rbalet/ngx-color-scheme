@@ -1,5 +1,5 @@
 {
-  "name": "ngx-dark-mode",
+  "name": "ngx-color-scheme",
   "description": "Add dark mode to your Angular applications with ease!",
   "version": "0.0.1",
   "license": "MIT",
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rbalet/ngx-dark-mode"
+    "url": "https://github.com/rbalet/ngx-color-scheme"
   },
   "author": {
     "name": "Raphaël Balet",

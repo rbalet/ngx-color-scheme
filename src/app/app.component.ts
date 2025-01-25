@@ -4,10 +4,10 @@ import { Component } from "@angular/core";
   selector: "app-root",
   template: `
     <div class="container">
-      <h1>ngx-dark-mode</h1>
+      <h1>ngx-color-scheme</h1>
       <p>Toggle to see magic happens!</p>
       <div>
-        <app-dark-mode-toggle> </app-dark-mode-toggle>
+        <app-color-scheme-toggle> </app-color-scheme-toggle>
       </div>
     </div>
     <footer>

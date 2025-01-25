@@ -14,7 +14,7 @@
     "module": "es2020",
     "lib": ["es2018", "dom"],
     "paths": {
-      "ngx-dark-mode": ["./projects/ngx-dark-mode/src/public-api.ts"]
+      "ngx-color-scheme": ["./projects/ngx-color-scheme/src/public-api.ts"]
     },
     "useDefineForClassFields": false
   },

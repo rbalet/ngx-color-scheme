@@ -1,4 +1,4 @@
-export interface DarkModeOptions {
+export interface ColorSchemeOptions {
   darkModeClass: string;
   lightModeClass: string;
   preloadingClass: string;

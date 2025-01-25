@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
-import { prefersDarkSchemeQuery } from './media-query';
+import { Injectable } from "@angular/core";
+import { prefersDarkSchemeQuery } from "./media-query";
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class MediaQueryService {
   matchMedia(query: string): MediaQueryList {
     return window.matchMedia(query);
   }
 
-  prefersDarkMode(): boolean {
+  prefersColorScheme(): boolean {
     return this.matchMedia(prefersDarkSchemeQuery).matches;
   }
 }

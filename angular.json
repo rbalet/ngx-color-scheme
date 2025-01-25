@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ngx-dark-mode-app": {
+    "ngx-color-scheme-app": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -38,7 +38,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ngx-dark-mode-app",
+            "outputPath": "dist/ngx-color-scheme-app",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -49,9 +49,6 @@
             ],
             "styles": [
               "src/styles.css"
-            ],
-            "scripts": [
-              "./projects/ngx-dark-mode/ngx-dark-mode.js"
             ],
             "vendorChunk": true,
             "extractLicenses": false,
@@ -94,37 +91,37 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "buildTarget": "ngx-dark-mode-app:build"
+            "buildTarget": "ngx-color-scheme-app:build"
           },
           "configurations": {
             "production": {
-              "buildTarget": "ngx-dark-mode-app:build:production"
+              "buildTarget": "ngx-color-scheme-app:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "ngx-dark-mode-app:build"
+            "buildTarget": "ngx-color-scheme-app:build"
           }
         }
       }
     },
-    "ngx-dark-mode": {
+    "ngx-color-scheme": {
       "projectType": "library",
-      "root": "projects/ngx-dark-mode",
-      "sourceRoot": "projects/ngx-dark-mode/src",
+      "root": "projects/ngx-color-scheme",
+      "sourceRoot": "projects/ngx-color-scheme/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": "projects/ngx-dark-mode/tsconfig.lib.json",
-            "project": "projects/ngx-dark-mode/ng-package.json"
+            "tsConfig": "projects/ngx-color-scheme/tsconfig.lib.json",
+            "project": "projects/ngx-color-scheme/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/ngx-dark-mode/tsconfig.lib.prod.json"
+              "tsConfig": "projects/ngx-color-scheme/tsconfig.lib.prod.json"
             }
           }
         }
