@@ -1,5 +1,5 @@
-import { InjectionToken } from "@angular/core";
-import { ColorSchemeOptions } from "./types";
+import { InjectionToken } from '@angular/core'
+import { ColorSchemeOptions } from './types'
 
 /**
  * InjectionToken to override default options
@@ -16,6 +16,6 @@ import { ColorSchemeOptions } from "./types";
  *   },
  * ]
  */
-export const COLOR_SCHEME_OPTIONS = new InjectionToken<
-  Partial<ColorSchemeOptions>
->("COLOR_SCHEME_OPTIONS");
+export const COLOR_SCHEME_OPTIONS = new InjectionToken<Partial<ColorSchemeOptions>>(
+  'COLOR_SCHEME_OPTIONS',
+)
