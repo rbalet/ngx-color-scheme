@@ -1,7 +1,9 @@
 import { Component } from '@angular/core'
+import { ColorSchemeToggleComponent } from './color-scheme-toggle.component'
 
 @Component({
   selector: 'app-root',
+  imports: [ColorSchemeToggleComponent],
   template: `
     <div class="container">
       <h1>ngx-color-scheme</h1>
@@ -44,6 +46,5 @@ import { Component } from '@angular/core'
       }
     `,
   ],
-  standalone: false,
 })
 export class AppComponent {}

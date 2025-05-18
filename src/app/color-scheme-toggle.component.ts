@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, inject } from '@angular/core'
 import { ColorSchemeService } from 'projects/ngx-color-scheme/src/lib/color-scheme.service'
 
 @Component({
@@ -7,7 +7,7 @@ import { ColorSchemeService } from 'projects/ngx-color-scheme/src/lib/color-sche
     <input
       id="colorScheme"
       type="checkbox"
-      [checked]="darkMode$()"
+      [checked]="$darkMode()"
       (change)="onToggle()"
       class="toggle"
     />
@@ -28,6 +28,7 @@ import { ColorSchemeService } from 'projects/ngx-color-scheme/src/lib/color-sche
         width: 3rem;
         height: 3rem;
         overflow: hidden;
+        cursor: pointer;
       }
 
       .sun,
@@ -58,9 +59,8 @@ import { ColorSchemeService } from 'projects/ngx-color-scheme/src/lib/color-sche
   ],
 })
 export class ColorSchemeToggleComponent {
-  readonly darkMode$ = this.colorSchemeService.darkMode$
-
-  constructor(private colorSchemeService: ColorSchemeService) {}
+  readonly colorSchemeService = inject(ColorSchemeService)
+  readonly $darkMode = this.colorSchemeService.$darkMode
 
   onToggle(): void {
     this.colorSchemeService.toggle()

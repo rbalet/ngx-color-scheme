@@ -1,13 +1,22 @@
-import { enableProdMode } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { enableProdMode, inject, provideAppInitializer } from '@angular/core'
 
-import { AppModule } from './app/app.module';
-import { environment } from './environments/environment';
+import { bootstrapApplication } from '@angular/platform-browser'
+import { ColorSchemeService } from 'projects/ngx-color-scheme/src/lib/color-scheme.service'
+import { AppComponent } from './app/app.component'
+import { environment } from './environments/environment'
 
 if (environment.production) {
-  enableProdMode();
+  enableProdMode()
 }
 
-platformBrowserDynamic()
-  .bootstrapModule(AppModule)
-  .catch(err => console.error(err));
+bootstrapApplication(AppComponent, {
+  providers: [
+    ColorSchemeService,
+
+    provideAppInitializer(() => {
+      const colorSchemeService = inject(ColorSchemeService)
+
+      colorSchemeService.init()
+    }),
+  ],
+}).catch((err) => console.error(err))
