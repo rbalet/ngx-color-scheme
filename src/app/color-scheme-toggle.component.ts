@@ -7,7 +7,7 @@ import { ColorSchemeService } from 'projects/ngx-color-scheme/src/lib/color-sche
     <input
       id="colorScheme"
       type="checkbox"
-      [checked]="$darkMode()"
+      [checked]="$isDarkMode()"
       (change)="onToggle()"
       class="toggle"
     />
@@ -60,7 +60,7 @@ import { ColorSchemeService } from 'projects/ngx-color-scheme/src/lib/color-sche
 })
 export class ColorSchemeToggleComponent {
   readonly colorSchemeService = inject(ColorSchemeService)
-  readonly $darkMode = this.colorSchemeService.$darkMode
+  readonly $isDarkMode = this.colorSchemeService.$isDarkMode.asReadonly()
 
   onToggle(): void {
     this.colorSchemeService.toggle()

@@ -32,7 +32,26 @@ To use ngx-color-scheme in your project install it via npm:
 // npm npm i ngx-color-scheme
 ```
 
-or provide it inside the `app.module.ts` file 
+and provide it inside your `min.ts` file:
+
+```typescript
+import { ColorSchemeService } from 'ngx-color-scheme'
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    ColorSchemeService,
+
+    provideAppInitializer(() => {
+      const colorSchemeService = inject(ColorSchemeService)
+
+      colorSchemeService.init()
+    }),
+  ],
+}).catch((err) => console.error(err))
+```
+
+
+or inside the `app.module.ts` file 
 
 ```typescript
 import { ColorSchemeService } from 'ngx-color-scheme'
@@ -57,6 +76,8 @@ providers: [
 ## SSR
 In case you'd like to use it with Angular SSR.
 As the library is using `document.body`, you need to instantiate it inside the `app.component.ts` file. 
+
+_Note: The app will have initially no state when it first load, but this cannot be avoided._
 
 ```typescript
 // app.component.ts
@@ -87,17 +108,17 @@ In order to use ngx-color-scheme you need to inject the service somewhere in you
   selector: 'app-color-scheme-toggle',
   template: `<input
     type="checkbox"
-    [checked]="colorScheme$ | async"
+    [checked]="$isDarkMode"
     (change)="onToggle()"
   />`,
 })
 export class ColorSchemeToggle {
-  colorScheme$ = this.colorSchemeService.colorScheme$.asReadonly();
+  readonly #colorSchemeService = inject(ColorSchemeService);
 
-  constructor(private colorSchemeService: ColorSchemeService) {}
+  $isDarkMode = this.#colorSchemeService.$isDarkMode.asReadonly();
 
   onToggle(): void {
-    this.colorSchemeService.toggle();
+    this.#colorSchemeService.toggle();
   }
 }
 ```
@@ -116,20 +137,6 @@ body.light-mode {
   background-color: #dfe6e9;
   color: #2d3436;
 }
-```
-
-```ts
-// app.component.ts
-
-@Component({
-  selector: 'app-root',
-  template: `
-    <h1>ngx-color-scheme</h1>
-    <p>Toggle to see magic happens!</p>
-    <app-color-scheme-toggle></app-color-scheme-toggle>
-  `,
-})
-export class AppComponent {}
 ```
 
 You're all set!  
@@ -197,7 +204,7 @@ Thanks goes to these wonderful people:
     <td align="center"><a href="https://talohana.com/"><img src="https://avatars.githubusercontent.com/u/24203431?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tal Ohana</b></sub></a><br /><a href="https://github.com/TalOhana/ngx-color-scheme/commits?author=talohana" title="Code">💻</a> <a href="https://github.com/TalOhana/ngx-color-scheme/commits?author=talohana" title="Documentation">📖</a> <a href="#maintenance-talohana" title="Maintenance">🚧</a></td>
     <td align="center"><a href="https://github.com/Guysh9"><img src="https://avatars.githubusercontent.com/u/75510227?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Guy Shemesh</b></sub></a><br /><a href="#design-Guysh9" title="Design">🎨</a></td>
     <td align="center"><a href="https://github.com/rbalet"><img src="https://avatars.githubusercontent.com/u/44493964?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Raphaël Balet
-</b></sub></a><br /><a href="#maintenance-talohana" title="Maintenance">🚧</a></td>
+</b></sub></a><br /><a href="https://github.com/TalOhana/ngx-color-scheme/commits?author=rbalet" title="Code">💻</a> <a href="https://github.com/TalOhana/ngx-color-scheme/commits?author=rbalet" title="Documentation">📖</a> <a href="#maintenance-rbalet" title="Maintenance">🚧</a></td>
   </tr>
 </table>
 

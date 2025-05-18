@@ -3,9 +3,9 @@ import 'zone.js/testing'
 
 import { fakeAsync, tick } from '@angular/core/testing'
 import { when } from 'jest-when'
+import { ColorSchemeOptions } from './color-scheme'
 import { ColorSchemeService } from './color-scheme.service'
 import { defaultOptions } from './default-options'
-import { ColorSchemeOptions } from './types'
 
 describe('ColorSchemeService', () => {
   let element: HTMLElement
@@ -41,7 +41,7 @@ describe('ColorSchemeService', () => {
       const colorSchemeService = createService()
       colorSchemeService.init()
 
-      expect(colorSchemeService.$darkMode()).toBe(false)
+      expect(colorSchemeService.$isDarkMode()).toBe(false)
       expect(addClassSpy).toHaveBeenCalledWith(defaultOptions.lightModeClass)
     })
 
@@ -50,7 +50,7 @@ describe('ColorSchemeService', () => {
       const colorSchemeService = createService()
       colorSchemeService.init()
 
-      expect(colorSchemeService.$darkMode()).toBe(true)
+      expect(colorSchemeService.$isDarkMode()).toBe(true)
       expect(addClassSpy).toHaveBeenCalledWith(defaultOptions.darkModeClass)
     })
   })
@@ -63,12 +63,12 @@ describe('ColorSchemeService', () => {
 
     let colorSchemeService = createService()
     colorSchemeService.init()
-    expect(colorSchemeService.$darkMode()).toBe(true)
+    expect(colorSchemeService.$isDarkMode()).toBe(true)
     expect(addClassSpy).toHaveBeenCalledWith(defaultOptions.darkModeClass)
 
     colorSchemeService = createService()
     colorSchemeService.init()
-    expect(colorSchemeService.$darkMode()).toBe(false)
+    expect(colorSchemeService.$isDarkMode()).toBe(false)
     expect(addClassSpy).toHaveBeenCalledWith(defaultOptions.lightModeClass)
   })
 
@@ -85,12 +85,12 @@ describe('ColorSchemeService', () => {
 
     let colorSchemeService = createService(providedOptions)
     colorSchemeService.init()
-    expect(colorSchemeService.$darkMode()).toBe(true)
+    expect(colorSchemeService.$isDarkMode()).toBe(true)
     expect(addClassSpy).toHaveBeenCalledWith(providedOptions.darkModeClass)
 
     colorSchemeService = createService(providedOptions)
     colorSchemeService.init()
-    expect(colorSchemeService.$darkMode()).toBe(false)
+    expect(colorSchemeService.$isDarkMode()).toBe(false)
     expect(addClassSpy).toHaveBeenCalledWith(providedOptions.lightModeClass)
   })
 
@@ -107,7 +107,7 @@ describe('ColorSchemeService', () => {
       mockLocalStorageColorScheme('dark-mode')
       const colorSchemeService = createService()
       colorSchemeService.init()
-      const colorSchemeValue = colorSchemeService.$darkMode.asReadonly()
+      const colorSchemeValue = colorSchemeService.$isDarkMode.asReadonly()
       expect(colorSchemeValue()).toEqual(true)
       colorSchemeService.toggle()
       expect(colorSchemeValue()).toEqual(false)
@@ -121,7 +121,7 @@ describe('ColorSchemeService', () => {
       mockLocalStorageColorScheme('light-mode')
       const colorSchemeService = createService()
       colorSchemeService.init()
-      const colorSchemeValue = colorSchemeService.$darkMode.asReadonly()
+      const colorSchemeValue = colorSchemeService.$isDarkMode.asReadonly()
       expect(colorSchemeValue()).toEqual(false)
       colorSchemeService.activateDarkMode()
       expect(colorSchemeValue()).toEqual(true)
@@ -132,7 +132,7 @@ describe('ColorSchemeService', () => {
       mockLocalStorageColorScheme('dark-mode')
       const colorSchemeService = createService()
       colorSchemeService.init()
-      const colorSchemeValue = colorSchemeService.$darkMode.asReadonly()
+      const colorSchemeValue = colorSchemeService.$isDarkMode.asReadonly()
       expect(colorSchemeValue()).toEqual(true)
       colorSchemeService.activateDarkMode()
       expect(colorSchemeValue()).toEqual(true)
@@ -144,7 +144,7 @@ describe('ColorSchemeService', () => {
       mockLocalStorageColorScheme('dark-mode')
       const colorSchemeService = createService()
       colorSchemeService.init()
-      const colorSchemeValue = colorSchemeService.$darkMode.asReadonly()
+      const colorSchemeValue = colorSchemeService.$isDarkMode.asReadonly()
       expect(colorSchemeValue()).toEqual(true)
       colorSchemeService.activateLightMode()
       expect(colorSchemeValue()).toEqual(false)
@@ -155,7 +155,7 @@ describe('ColorSchemeService', () => {
       mockLocalStorageColorScheme('light-mode')
       const colorSchemeService = createService()
       colorSchemeService.init()
-      const colorSchemeValue = colorSchemeService.$darkMode.asReadonly()
+      const colorSchemeValue = colorSchemeService.$isDarkMode.asReadonly()
       expect(colorSchemeValue()).toEqual(false)
       colorSchemeService.activateLightMode()
       expect(colorSchemeValue()).toEqual(false)

@@ -1,4 +1,4 @@
-import { ColorSchemeOptions } from './types'
+import { ColorSchemeOptions } from './color-scheme'
 
 /**
  * Default options used in ColorSchemeService

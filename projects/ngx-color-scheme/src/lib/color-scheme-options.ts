@@ -1,5 +1,5 @@
 import { InjectionToken } from '@angular/core'
-import { ColorSchemeOptions } from './types'
+import { ColorSchemeOptions } from './color-scheme'
 
 /**
  * InjectionToken to override default options
