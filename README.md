@@ -109,7 +109,7 @@ In order to use ngx-color-scheme you need to inject the service somewhere in you
   template: `<input
     type="checkbox"
     [checked]="$isDarkMode"
-    (change)="onToggle()"
+    (change)="ontoggleColorScheme()"
   />`,
 })
 export class ColorSchemeToggle {
@@ -117,8 +117,8 @@ export class ColorSchemeToggle {
 
   $isDarkMode = this.#colorSchemeService.$isDarkMode.asReadonly();
 
-  onToggle(): void {
-    this.#colorSchemeService.toggle();
+  ontoggleColorScheme(): void {
+    this.#colorSchemeService.toggleColorScheme();
   }
 }
 ```

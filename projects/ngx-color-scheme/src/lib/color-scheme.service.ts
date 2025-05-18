@@ -5,8 +5,9 @@ import { defaultOptions } from './default-options'
 
 @Injectable()
 export class ColorSchemeService {
-  private _options!: ColorSchemeOptions
   public $isDarkMode = signal<boolean>(false)
+
+  private _options!: ColorSchemeOptions
 
   constructor(
     @Optional()
@@ -29,15 +30,11 @@ export class ColorSchemeService {
     this.removePreloadingClass()
   }
 
-  matchMedia(query: string): MediaQueryList {
-    return window.matchMedia(query)
-  }
-
-  toggle(): void {
+  toggleColorScheme() {
     this.$isDarkMode() ? this.activateLightMode() : this.activateDarkMode()
   }
 
-  activateDarkMode(): void {
+  activateDarkMode() {
     this.$isDarkMode.set(true)
 
     const { darkModeClass, lightModeClass } = this._options
@@ -47,9 +44,11 @@ export class ColorSchemeService {
     element.classList.add(darkModeClass)
 
     localStorage.setItem(this._options.storageKey, darkModeClass)
+
+    this.afterChange()
   }
 
-  activateLightMode(): void {
+  activateLightMode() {
     this.$isDarkMode.set(false)
 
     const { darkModeClass, lightModeClass } = this._options
@@ -59,6 +58,12 @@ export class ColorSchemeService {
     element.classList.add(lightModeClass)
 
     localStorage.setItem(this._options.storageKey, lightModeClass)
+
+    this.afterChange()
+  }
+
+  afterChange() {
+    // Meant to be overridden
   }
 
   private removePreloadingClass(): void {
