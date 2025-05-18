@@ -18,15 +18,13 @@ export class ColorSchemeService {
     this._options = { ...defaultOptions, ...(this.providedOptions || {}) }
 
     const storageColor = localStorage.getItem(this._options.storageKey)
-    this.$isDarkMode = signal<boolean>(
-      storageColor
-        ? storageColor === this._options.darkModeClass
-        : window?.matchMedia
-          ? window.matchMedia('(prefers-color-scheme: dark)').matches
-          : false,
-    )
+    const isDarkMode = storageColor
+      ? storageColor === this._options.darkModeClass
+      : window?.matchMedia
+        ? window.matchMedia('(prefers-color-scheme: dark)').matches
+        : false
 
-    this.$isDarkMode() ? this.activateDarkMode() : this.activateLightMode()
+    isDarkMode ? this.activateDarkMode() : this.activateLightMode()
 
     this.removePreloadingClass()
   }
