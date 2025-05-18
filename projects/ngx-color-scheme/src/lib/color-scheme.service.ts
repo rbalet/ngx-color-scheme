@@ -6,7 +6,7 @@ import { ColorSchemeOptions } from './types'
 @Injectable()
 export class ColorSchemeService {
   private _options!: ColorSchemeOptions
-  public darkMode$ = signal<boolean>(false)
+  public $darkMode = signal<boolean>(false)
 
   constructor(
     @Optional()
@@ -16,10 +16,17 @@ export class ColorSchemeService {
 
   init() {
     this._options = { ...defaultOptions, ...(this.providedOptions || {}) }
-    this.darkMode$ = signal<boolean>(
-      localStorage.getItem(this._options.storageKey) === this._options.darkModeClass,
+
+    const storageColor = localStorage.getItem(this._options.storageKey)
+    this.$darkMode = signal<boolean>(
+      storageColor
+        ? storageColor === this._options.darkModeClass
+        : window?.matchMedia
+          ? window.matchMedia('(prefers-color-scheme: dark)').matches
+          : false,
     )
-    this.darkMode$() ? this.activateDarkMode() : this.activateLightMode()
+
+    this.$darkMode() ? this.activateDarkMode() : this.activateLightMode()
 
     this.removePreloadingClass()
   }
@@ -29,11 +36,11 @@ export class ColorSchemeService {
   }
 
   toggle(): void {
-    this.darkMode$() ? this.activateLightMode() : this.activateDarkMode()
+    this.$darkMode() ? this.activateLightMode() : this.activateDarkMode()
   }
 
   activateDarkMode(): void {
-    this.darkMode$.set(true)
+    this.$darkMode.set(true)
 
     const { darkModeClass, lightModeClass } = this._options
     const element = this._options.element || document.body
@@ -45,7 +52,7 @@ export class ColorSchemeService {
   }
 
   activateLightMode(): void {
-    this.darkMode$.set(false)
+    this.$darkMode.set(false)
 
     const { darkModeClass, lightModeClass } = this._options
     const element = this._options.element || document.body
