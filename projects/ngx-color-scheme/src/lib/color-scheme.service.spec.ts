@@ -1,6 +1,3 @@
-import 'zone.js'
-import 'zone.js/testing'
-
 import { fakeAsync, tick } from '@angular/core/testing'
 import { when } from 'jest-when'
 import { ColorSchemeOptions } from './color-scheme'

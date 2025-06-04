@@ -8,13 +8,18 @@
     "declaration": false,
     "experimentalDecorators": true,
     "strict": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2022",
     "module": "es2020",
-    "lib": ["es2018", "dom"],
+    "lib": [
+      "es2018",
+      "dom"
+    ],
     "paths": {
-      "ngx-color-scheme": ["./projects/ngx-color-scheme/src/public-api.ts"]
+      "ngx-color-scheme": [
+        "./projects/ngx-color-scheme/src/public-api.ts"
+      ]
     },
     "useDefineForClassFields": false
   },

@@ -1,4 +1,9 @@
-import { enableProdMode, inject, provideAppInitializer } from '@angular/core'
+import {
+  enableProdMode,
+  inject,
+  provideAppInitializer,
+  provideZonelessChangeDetection,
+} from '@angular/core'
 
 import { bootstrapApplication } from '@angular/platform-browser'
 import { ColorSchemeService } from 'projects/ngx-color-scheme/src/lib/color-scheme.service'
@@ -11,6 +16,7 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
   providers: [
+    provideZonelessChangeDetection(),
     ColorSchemeService,
 
     provideAppInitializer(() => {
