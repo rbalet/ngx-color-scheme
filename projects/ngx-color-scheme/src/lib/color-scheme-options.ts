@@ -1,5 +1,4 @@
 import { InjectionToken } from '@angular/core'
-import { ColorSchemeOptions } from './color-scheme'
 
 /**
  * InjectionToken to override default options
@@ -19,3 +18,11 @@ import { ColorSchemeOptions } from './color-scheme'
 export const COLOR_SCHEME_OPTIONS = new InjectionToken<Partial<ColorSchemeOptions>>(
   'COLOR_SCHEME_OPTIONS',
 )
+
+export interface ColorSchemeOptions {
+  darkModeClass: string
+  lightModeClass: string
+  preloadingClass: string
+  storageKey: string
+  element?: HTMLElement
+}

@@ -1,8 +1,8 @@
 import { fakeAsync, tick } from '@angular/core/testing'
 import { when } from 'jest-when'
-import { ColorSchemeOptions } from './color-scheme'
+import { defaultOptions } from 'ngx-color-scheme'
+import { ColorSchemeOptions } from './color-scheme-options'
 import { ColorSchemeService } from './color-scheme.service'
-import { defaultOptions } from './default-options'
 
 describe('ColorSchemeService', () => {
   let element: HTMLElement

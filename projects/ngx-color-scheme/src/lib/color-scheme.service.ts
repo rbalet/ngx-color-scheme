@@ -1,6 +1,5 @@
 import { Inject, Injectable, Optional, signal } from '@angular/core'
-import { ColorSchemeOptions } from './color-scheme'
-import { COLOR_SCHEME_OPTIONS } from './color-scheme-options'
+import { COLOR_SCHEME_OPTIONS, ColorSchemeOptions } from './color-scheme-options'
 import { defaultOptions } from './default-options'
 
 @Injectable()
