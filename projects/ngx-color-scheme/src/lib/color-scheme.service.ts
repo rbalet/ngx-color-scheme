@@ -44,7 +44,7 @@ export class ColorSchemeService {
 
     localStorage.setItem(this._options.storageKey, darkModeClass)
 
-    this.afterChange()
+    this.afterChange(true)
   }
 
   activateLightMode() {
@@ -58,10 +58,10 @@ export class ColorSchemeService {
 
     localStorage.setItem(this._options.storageKey, lightModeClass)
 
-    this.afterChange()
+    this.afterChange(false)
   }
 
-  afterChange() {
+  afterChange(isDarkMode: boolean) {
     // Meant to be overridden
   }
 
